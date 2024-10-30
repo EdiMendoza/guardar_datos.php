@@ -1,57 +1,47 @@
 <?php
-// Configuración de la base de datos
-$servidor = "localhost";
-$usuario = "tu_usuario";
-$contraseña = "tu_contraseña";
-$base_datos = "turismo";
+session_start();
 
-// Crear conexión
-$conn = new mysqli($servidor, $usuario, $contraseña, $base_datos);
+// Simula la asignación del rol para pruebas. (En producción, esto se configura al iniciar sesión)
+$_SESSION['role'] = 'usuario'; // Cambia a 'administrador' para probar como admin
 
-// Verificar conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
-
-// Obtener datos del formulario
-$nombre = $_POST['nombre'];
-$email = $_POST['email'];
-$telefono = $_POST['telefono'];
-$descripcion = $_POST['descripcion'];
-$rol = $_POST['rol']; // Supongamos que este campo indica si es 'admin' o 'usuario'
-
-// Verificar rol y realizar acciones según el rol
-if ($rol === 'admin') {
-    // Permitir al administrador guardar información sin restricciones
-    $sql = "INSERT INTO clientes (nombre, email, telefono, descripcion, rol) VALUES ('$nombre', '$email', '$telefono', '$descripcion', '$rol')";
-    if ($conn->query($sql) === TRUE) {
-        echo "Los datos se guardaron correctamente.";
-    } else {
-        echo "Error al guardar los datos: " . $conn->error;
-    }
-} elseif ($rol === 'usuario') {
-    // Permitir al usuario hacer solo reservas o cancelarlas
-    if (isset($_POST['accion']) && $_POST['accion'] === 'reservar') {
-        // Insertar una nueva reserva
-        $sql = "INSERT INTO reservas (nombre, email, telefono, descripcion) VALUES ('$nombre', '$email', '$telefono', '$descripcion')";
-        if ($conn->query($sql) === TRUE) {
-            echo "La reserva se realizó correctamente.";
-        } else {
-            echo "Error al realizar la reserva: " . $conn->error;
-        }
-    } elseif (isset($_POST['accion']) && $_POST['accion'] === 'cancelar') {
-        // Eliminar una reserva existente
-        $sql = "DELETE FROM reservas WHERE email = '$email' AND descripcion = '$descripcion'";
-        if ($conn->query($sql) === TRUE) {
-            echo "La reserva se canceló correctamente.";
-        } else {
-            echo "Error al cancelar la reserva: " . $conn->error;
-        }
-    }
-} else {
-    echo "Permiso denegado.";
-}
-
-// Cerrar conexión
-$conn->close();
 ?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Yucatán: Un paraíso por descubrir</title>
+	<link rel="stylesheet" href="styles.css"> <!-- Incluye el archivo CSS externo -->
+</head>
+<body>
+	<?php include 'header.php'; ?> <!-- Incluye el header desde un archivo externo -->
+
+	<!-- Contenidos dinámicos según el rol -->
+	<div class="content place" id="inicio">
+		<div>
+			<h2>¡Bienvenido a Yucatán!</h2>
+			<p>Descubre la belleza y la historia de Yucatán.</p>
+		</div>
+	</div>
+
+	<div class="content place" id="izamal" style="display: none;">
+		<h2>Un poco de Izamal</h2>
+		<p>Descripción de Izamal...</p>
+	</div>
+
+	<div class="content place" id="motul" style="display: none;">
+		<h2>Un poco de Motul</h2>
+		<p>Descripción de Motul...</p>
+	</div>
+
+	<?php if ($_SESSION['role'] == 'administrador'): ?>
+		<div class="content place" id="admin" style="display: none;">
+			<h2>Panel de Administración</h2>
+			<p>Aquí puedes gestionar el contenido y usuarios.</p>
+		</div>
+	<?php endif; ?>
+
+	<script src="script.js"></script> <!-- Incluye el archivo JavaScript externo -->
+</body>
+</html>
+
