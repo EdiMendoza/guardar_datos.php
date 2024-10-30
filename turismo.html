@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Yucatán: Un paraíso por descubrir</title>
+	<style>
+		body {
+			margin: 0;
+			font-family: 'Arial', sans-serif;
+			background-color: #f0f0f0;
+		}
+		.header {
+			background-color: #008080;
+			color: #fff;
+			padding: 20px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			flex-wrap: wrap;
+		}
+		.header h1 {
+			margin: 0;
+			font-size: 1.8em;
+			color: #FFD700;
+		}
+		.header nav ul {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			flex-wrap: wrap;
+		}
+		.header nav ul li {
+			margin: 0 5px;
+		}
+		.header nav ul li a {
+			background-color: #d19595;
+			color: #333;
+			padding: 8px;
+			border-radius: 5px;
+			text-decoration: none;
+		}
+		.content {
+			display: grid;
+			grid-template-columns: 1fr 1.618fr;
+			grid-gap: 20px;
+			padding: 20px;
+		}
+		.content img {
+			width: 100%;
+			height: auto;
+			border-radius: 8px;
+		}
+		.content h2 {
+			margin: 0;
+			margin-bottom: 10px;
+			color: #008080;
+		}
+		.content p {
+			margin: 0;
+			color: #696969;
+		}
+		ul {
+			padding-left: 20px;
+		}
+		button {
+			background-color: #008080;
+			color: white;
+			border: none;
+			padding: 10px 20px;
+			text-align: center;
+			font-size: 16px;
+			margin: 10px 0;
+			cursor: pointer;
+			border-radius: 5px;
+		}
+		@media (max-width: 768px) {
+			.header {
+				flex-direction: column;
+				align-items: center;
+			}
+			.header nav ul {
+				justify-content: center;
+			}
+			.content {
+				grid-template-columns: 1fr;
+				padding: 10px;
+			}
+			.content img {
+				margin-bottom: 20px;
+			}
+		}
+	</style>
+	<script>
+		function showPlace(placeId) {
+			document.querySelectorAll('.place').forEach(place => place.style.display = 'none');
+			const selectedPlace = document.getElementById(placeId);
+			if (selectedPlace) {
+				selectedPlace.style.display = 'block';
+				selectedPlace.style.opacity = '0';
+				setTimeout(() => {
+					selectedPlace.style.opacity = '1';
+					selectedPlace.style.transition = 'opacity 0.5s';
+				}, 10);
+			}
+		}
+		window.addEventListener('load', () => {
+			showPlace('inicio');
+		});
+	</script>
+</head>
+<body>
+	<header class="header">
+		<img src="Images/Logo.jpeg" alt="Logotipo" style="width: 80px;">
+		<h1>Yucatán: Un paraíso por descubrir</h1>
+		<nav>
+			<ul>
+				<li><a href="#" onclick="showPlace('inicio')">Inicio</a></li>
+				<li><a href="#" onclick="showPlace('izamal')">Izamal</a></li>
+				<li><a href="#" onclick="showPlace('motul')">Motul</a></li>
+			</ul>
+		</nav>
+	</header>
+	
+	<!-- Sección Inicio -->
+	<div class="content place" id="inicio">
+		<div>
+			<h2>¡Bienvenido a Yucatán!</h2>
+			<p>Descubre la belleza y la historia de Yucatán.</p>
+			<p>Dirección: C. 29, Sta Rita, 97702 Tizimín, Yuc.</p>
+			<p>Contacto: 986 863 4279</p>
+		</div>
+		<div>
+			<h2>Galería de lugares</h2>
+			<img src="Images/YUCATAN-INTERIOR.jpg" alt="Lugar 1">
+			<img src="Images/Colap de imagenes.jpg" alt="Lugar 2">
+		</div>
+	</div>
+	
+	<!-- Sección Izamal -->
+	<div class="content place" id="izamal" style="display: none;">
+		<img src="Images/Izamal1.jpg" alt="Imagen de Izamal">
+		<h2>Un poco de Izamal</h2>
+		<p>Izamal es una ciudad colonial fundada en el siglo XVI sobre los vestigios de una antigua ciudad maya. Se le conoce como "La Ciudad de las Tres Culturas".</p>
+		<h3>¿Qué atractivos hay?</h3>
+		<ul>
+			<li>Comer en el mercado municipal</li>
+			<li>Ex Convento de San Antonio de Padua</li>
+			<li>Haciendas Sacnicte y San Antonio Chalante</li>
+			<li>Paseo en calesa o en bicicleta</li>
+		</ul>
+		<button onclick="showPlace('inicio')">Volver al inicio</button>
+	</div>
+	
+	<!-- Sección Motul -->
+	<div class="content place" id="motul" style="display: none;">
+		<img src="Images/Motull.jpeg" alt="Imagen de Motul">
+		<h2>Un poco de Motul</h2>
+		<p>Motul conserva su historia maya y colonial con arquitectura impresionante y una cultura vibrante. Las ex haciendas cuentan historias de un glorioso pasado.</p>
+		<h3>¿Qué atractivos hay?</h3>
+		<ul>
+			<li>Comer en el mercado municipal</li>
+			<li>Ex Convento de San Antonio de Padua</li>
+			<li>Haciendas Sacnicte y San Antonio Chalante</li>
+		</ul>
+		<button onclick="showPlace('inicio')">Volver al inicio</button>
+	</div>
+</body>
+</html>
