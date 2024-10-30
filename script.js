@@ -13,3 +13,4 @@ function showPlace(placeId) {
 window.addEventListener('load', () => {
 	showPlace('inicio');
 });
+
